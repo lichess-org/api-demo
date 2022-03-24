@@ -18,8 +18,10 @@ const userHome = (ctrl: Ctrl) => [
         'Play the Lichess AI'
       ),
     ]),
-    h('h1.mt-5', 'Games in progress'),
+    h('h2.mt-5', 'Games in progress'),
     h('div.games', ctrl.games.games.map(renderGameWidget)),
+    h('h2.mt-5', 'About'),
+    renderAbout(),
   ]),
 ];
 
@@ -74,3 +76,16 @@ const anonHome = () => [
     ),
   ]),
 ];
+
+const renderAbout = () => h('div.about', [
+  h('p', 'This is an example for a fully client side OAuth app that uses various Lichess APIs.'),
+  h('ul', [
+    h('li', h('a', {
+      attrs: { href: 'https://github.com/lichess-org/api-demo' }
+    }, 'Source code of this demo')),
+    h('li', h('a', {
+      attrs: { href: 'https://lichess.org/api' }
+    }, 'Lichess.org API documentation'
+    ))
+  ])
+]);
