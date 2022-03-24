@@ -4,7 +4,7 @@ body {
   --board-color: '#f0d9b5';
 }
 
-html.dark a {
+a {
   color: var(--bs-primary);
   &:hover {
     color: white;
