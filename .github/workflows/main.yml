@@ -1,4 +1,4 @@
-name: Lint OpenAPI specification and publish documentation
+name: Publish the Lichess API Demo app
 
 on:
   - push
