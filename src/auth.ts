@@ -66,7 +66,7 @@ export class Auth {
 
   openStream = async (path: string, handler: (_: any) => void) => {
     const stream = await this.fetchResponse(path);
-    return readStream(`STREAM ${path}`, handler)(stream);
+    return readStream(`STREAM ${path}`, stream, handler);
   };
 
   fetchBody = async (path: string, config: any = {}) => {
