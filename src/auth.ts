@@ -1,4 +1,5 @@
 import { HttpClient, OAuth2AuthCodePKCE } from '@bity/oauth2-auth-code-pkce';
+import { readStream } from './ndJsonStream';
 import { BASE_PATH } from './routing';
 
 export const lichessHost = 'https://lichess.org';
@@ -56,7 +57,18 @@ export class Auth {
     this.me = undefined;
   }
 
-  fetchResponse = async (path: string, config: any = {}) => {
+  openStream = async (path: string, handler: (_: any) => void) => {
+    const stream = await this.fetchResponse(path);
+    await readStream(`STREAM ${path}`, handler)(stream);
+  };
+
+  fetchBody = async (path: string, config: any = {}) => {
+    const res = await this.fetchResponse(path, config);
+    const body = await res.json();
+    return body;
+  };
+
+  private fetchResponse = async (path: string, config: any = {}) => {
     const res = await this.me?.httpClient(`${lichessHost}${path}`, config);
     if (res.error || !res.ok) {
       const err = `${res.error} ${res.status} ${res.statusText}`;
@@ -64,12 +76,6 @@ export class Auth {
       throw err;
     }
     return res;
-  };
-
-  fetchBody = async (path: string, config: any = {}) => {
-    const res = await this.fetchResponse(path, config);
-    const body = await res.json();
-    return body;
   };
 
   private fetchMe = async () => {

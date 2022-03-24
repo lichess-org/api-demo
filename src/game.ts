@@ -79,8 +79,7 @@ export class GameCtrl {
           resolve(ctrl);
         }
       };
-      const stream = await root.auth.fetchResponse(`/api/board/game/stream/${id}`);
-      await readStream(handler)(stream);
+      await root.auth.openStream(`/api/board/game/stream/${id}`, handler);
     });
   private handle = (msg: any) => {
     console.log(msg);

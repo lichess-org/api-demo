@@ -21,7 +21,7 @@ const userHome = (ctrl: Ctrl) => [
     ]),
     h('h2.mt-5', 'Games in progress'),
     h('div.games', renderGames(ctrl.games)),
-    h('h2.mt-5', 'About'),
+    h('h2.mt-5.mb-3', 'About'),
     renderAbout(),
   ]),
 ];
@@ -31,7 +31,7 @@ const renderGames = (ongoing: OngoingGames) =>
 
 const renderGameWidget = (game: Game) =>
   h(
-    'a.game-widget.text-decoration-none',
+    `a.game-widget.text-decoration-none.game-widget--${game.id}`,
     {
       attrs: href(`/game/${game.gameId}`),
     },
@@ -105,5 +105,12 @@ const renderAbout = () =>
           'Lichess.org API documentation'
         )
       ),
+    ]),
+    h('p', [
+      'Press ',
+      h('code', '<Ctrl+Shift+j>'),
+      ' to open your browser console and view incoming events.',
+      h('br'),
+      'Check out the network tab as well to view API calls.',
     ]),
   ]);

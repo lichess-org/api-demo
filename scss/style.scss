@@ -1,14 +1,9 @@
 @import './chessground';
 
+$blue: #375a7f;
+
 body {
   --board-color: '#f0d9b5';
-}
-
-a {
-  color: var(--bs-primary);
-  &:hover {
-    color: white;
-  }
 }
 
 .login {
@@ -52,7 +47,7 @@ a {
     color: var(--bs-gray) !important;
   }
   &:hover {
-    background: var(--bs-primary);
+    background: $blue;
     color: white !important;
   }
   &__opponent {

@@ -1,9 +1,10 @@
 import { Chessground } from 'chessground';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
-import { h, VNode } from 'snabbdom';
+import { h } from 'snabbdom';
 import { GameCtrl } from '../game';
 import { Renderer } from '../interfaces';
+import { clockContent } from './clock';
 
 export const renderGame: (ctrl: GameCtrl) => Renderer = ctrl => _ => {
   return [
@@ -75,22 +76,7 @@ const renderPlayer = (ctrl: GameCtrl, color: Color) => {
         ),
         h('span.game-page__player__user__rating', p.rating || ''),
       ]),
-      h('div.game-page__player__clock.display-6.font-monospace', clockContent(ctrl, color, true)),
+      h('div.game-page__player__clock.display-6.font-monospace', clockContent(ctrl, color)),
     ]
   );
 };
-
-function clockContent(ctrl: GameCtrl, color: Color, showTenths: boolean): Array<string | VNode> {
-  const time = ctrl.timeOf(color);
-  if (!time && time !== 0) return ['-'];
-  const decay =
-    color == ctrl.chess.turn && ctrl.chess.fullmoves > 1 && ctrl.playing() ? ctrl.lastUpdateAt - Date.now() : 0;
-  const date = new Date(time + decay),
-    millis = date.getUTCMilliseconds(),
-    sep = ':',
-    baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
-  if (!showTenths || time >= 3600000) return [Math.floor(time / 3600000) + sep + baseStr];
-  return [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
-}
-
-const pad2 = (num: number) => (num < 10 ? '0' : '') + num;

@@ -38,8 +38,7 @@ export class Ctrl {
 
   startEventStream = async () => {
     if (this.auth.me) {
-      const stream = await this.auth.fetchResponse('/api/stream/event');
-      await readStream(this.messageHandler)(stream);
+      await this.auth.openStream('/api/stream/event', this.messageHandler);
       await sleep(3000);
       await this.startEventStream(); // reconnect
     }
