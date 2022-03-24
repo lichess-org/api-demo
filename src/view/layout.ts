@@ -2,6 +2,7 @@ import { h, VNode } from 'snabbdom';
 import { Me } from '../auth';
 import { Ctrl } from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
+import { href } from '../routing';
 import colorpicker from './colorpicker';
 
 export default function (ctrl: Ctrl, body: MaybeVNodes): VNode {
@@ -14,7 +15,7 @@ const renderNavBar = (ctrl: Ctrl) =>
       h(
         'a.navbar-brand',
         {
-          attrs: { href: '/' },
+          attrs: href('/'),
         },
         'Lichess API Demo'
       ),
@@ -65,7 +66,7 @@ const userNav = (me: Me) =>
           h(
             'a.dropdown-item',
             {
-              attrs: { href: '/logout' },
+              attrs: href('/logout'),
             },
             'Log out'
           )
@@ -80,7 +81,7 @@ const anonNav = () =>
     h(
       'a.btn.btn-primary.text-nowrap',
       {
-        attrs: { href: '/login' },
+        attrs: href('/login'),
       },
       'Login with Lichess'
     )

@@ -2,8 +2,9 @@ import { Ctrl } from './ctrl';
 import page from 'page';
 
 export default function (ctrl: Ctrl) {
+  page.base(BASE_PATH);
   page('/', async ctx => {
-    if (ctx.querystring.includes('code=liu_')) history.pushState({}, '', '/');
+    if (ctx.querystring.includes('code=liu_')) history.pushState({}, '', BASE_PATH);
     else {
       ctrl.page = 'home';
       ctrl.redraw();
@@ -15,7 +16,7 @@ export default function (ctrl: Ctrl) {
   });
   page('/logout', async _ => {
     await ctrl.auth.logout();
-    location.href = '/';
+    location.href = BASE_PATH;
   });
   page('/game/:id', ctx => {
     ctrl.page = 'game';
@@ -23,3 +24,8 @@ export default function (ctrl: Ctrl) {
   });
   page({ hashbang: true });
 }
+
+export const BASE_PATH = location.pathname.replace(/\/$/, '');
+
+export const url = (path: string) => `${BASE_PATH}${path}`;
+export const href = (path: string) => ({ href: url(path) });

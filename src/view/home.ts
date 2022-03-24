@@ -2,6 +2,7 @@ import { Chessground } from 'chessground';
 import { h } from 'snabbdom';
 import { Ctrl } from '../ctrl';
 import { Game, Renderer } from '../interfaces';
+import { href } from '../routing';
 
 export const renderHome: Renderer = ctrl => (ctrl.auth.me ? userHome(ctrl) : anonHome());
 
@@ -26,7 +27,7 @@ const renderGameWidget = (game: Game) =>
   h(
     'a.game-widget.text-decoration-none',
     {
-      attrs: { href: `/game/${game.gameId}` },
+      attrs: href(`/game/${game.gameId}`),
     },
     [
       h('span.game-widget__opponent', [
@@ -67,7 +68,7 @@ const anonHome = () => [
     h(
       'a.btn.btn-primary.btn-lg.mt-5',
       {
-        attrs: { href: '/login' },
+        attrs: href('/login'),
       },
       'Login with Lichess'
     ),
