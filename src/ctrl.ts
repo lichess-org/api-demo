@@ -16,6 +16,7 @@ export class Ctrl {
 
   openGame = async (id: string) => {
     this.game = undefined;
+    this.redraw();
     this.game = await GameCtrl.open(this, id);
     this.redraw();
   };
