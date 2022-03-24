@@ -24,24 +24,21 @@ export class Auth {
     onAccessTokenExpiry: refreshAccessToken => refreshAccessToken(),
     onInvalidGrant: _retry => {},
   });
-
   me?: Me;
-  error?: string;
 
   async init() {
-    this.error = undefined;
     try {
       const accessContext = await this.oauth.getAccessToken();
-      if (accessContext) await this.fetchMe();
+      if (accessContext) await this.authenticate();
     } catch (err) {
-      this.error = '' + err;
+      console.error(err);
     }
     if (!this.me) {
       try {
         const hasAuthCode = await this.oauth.isReturningFromAuthServer();
-        if (hasAuthCode) await this.fetchMe();
+        if (hasAuthCode) await this.authenticate();
       } catch (err) {
-        this.error = '' + err;
+        console.error(err);
       }
     }
   }
@@ -53,9 +50,19 @@ export class Auth {
   async logout() {
     if (this.me) await this.me.httpClient(`${lichessHost}/api/token`, { method: 'DELETE' });
     localStorage.clear();
-    this.error = undefined;
     this.me = undefined;
   }
+
+  private authenticate = async () => {
+    const httpClient = this.oauth.decorateFetchHTTPClient(window.fetch);
+    const res = await httpClient(`${lichessHost}/api/account`);
+    const me = {
+      ...(await res.json()),
+      httpClient,
+    };
+    if (me.error) throw me.error;
+    this.me = me;
+  };
 
   openStream = async (path: string, handler: (_: any) => void) => {
     const stream = await this.fetchResponse(path);
@@ -76,15 +83,5 @@ export class Auth {
       throw err;
     }
     return res;
-  };
-
-  private fetchMe = async () => {
-    const fetch = this.oauth.decorateFetchHTTPClient(window.fetch);
-    const res = await fetch(`${lichessHost}/api/account`);
-    const me = await res.json();
-    if (me.error) throw me.error;
-    me.httpClient = fetch;
-    this.me = me;
-    this.error = undefined;
   };
 }

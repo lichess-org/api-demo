@@ -17,7 +17,22 @@ export class Ctrl {
 
   openHome = async () => {
     this.page = 'home';
-    this.startEventStream();
+    if (this.auth.me) {
+      await this.stream?.close();
+      this.stream = await this.auth.openStream('/api/stream/event', msg => {
+        switch (msg.type) {
+          case 'gameStart':
+            this.games.onStart(msg.game);
+            break;
+          case 'gameFinish':
+            this.games.onFinish(msg.game);
+            break;
+          default:
+            console.warn(`Unprocessed message of type ${msg.type}`, msg);
+        }
+        this.redraw();
+      });
+    }
     this.redraw();
   };
 
@@ -42,27 +57,5 @@ export class Ctrl {
       }),
     });
     page(`/game/${game.id}`);
-  };
-
-  startEventStream = async () => {
-    if (this.auth.me) {
-      await this.stream?.close();
-      this.stream = await this.auth.openStream('/api/stream/event', this.messageHandler);
-    }
-  };
-
-  private messageHandler = (msg: any) => {
-    switch (msg.type) {
-      case 'gameStart':
-        this.games.onStart(msg.game);
-        this.redraw();
-        break;
-      case 'gameFinish':
-        this.games.onFinish(msg.game);
-        this.redraw();
-        break;
-      default:
-        console.error(`Unknown message type: ${msg.type}`, msg);
-    }
   };
 }

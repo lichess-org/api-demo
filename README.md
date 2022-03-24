@@ -11,3 +11,8 @@ This is an example for a fully client side OAuth app that uses various APIs.
 1. `npm install`
 1. `npm run build`
 1. `npm run serve` or any other method to serve the app on http://localhost:8000
+
+## Points of interest
+
+- [ND-JSON stream reader](https://github.com/lichess-org/api-demo/blob/master/src/ndJsonStream.ts)
+- [OAuth "Login with Lichess"](https://github.com/lichess-org/api-demo/blob/master/src/auth.ts)
