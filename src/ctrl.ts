@@ -1,20 +1,28 @@
 import { Auth } from './auth';
 import { GameCtrl } from './game';
 import { Page } from './interfaces';
-import { readStream } from './ndJsonStream';
+import { readStream, Stream } from './ndJsonStream';
 import { formData, sleep } from './util';
 import OngoingGames from './ongoingGames';
 import page from 'page';
 
 export class Ctrl {
   auth: Auth = new Auth();
+  stream?: Stream;
   page: Page = 'home';
   games = new OngoingGames();
   game?: GameCtrl;
 
   constructor(readonly redraw: () => void) {}
 
+  openHome = async () => {
+    this.page = 'home';
+    this.startEventStream();
+    this.redraw();
+  };
+
   openGame = async (id: string) => {
+    this.page = 'game';
     this.game = undefined;
     this.redraw();
     this.game = await GameCtrl.open(this, id);
@@ -38,9 +46,8 @@ export class Ctrl {
 
   startEventStream = async () => {
     if (this.auth.me) {
-      await this.auth.openStream('/api/stream/event', this.messageHandler);
-      await sleep(3000);
-      await this.startEventStream(); // reconnect
+      await this.stream?.close();
+      this.stream = await this.auth.openStream('/api/stream/event', this.messageHandler);
     }
   };
 

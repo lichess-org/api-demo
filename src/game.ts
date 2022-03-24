@@ -1,7 +1,7 @@
 import { Ctrl } from './ctrl';
 import { Game } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
-import { readStream } from './ndJsonStream';
+import { readStream, Stream } from './ndJsonStream';
 import { Color, Key } from 'chessground/types';
 import { opposite, parseUci } from 'chessops/util';
 import { Chess, defaultSetup } from 'chessops';
@@ -17,14 +17,17 @@ export class GameCtrl {
   ground?: CgApi;
   redrawInterval: ReturnType<typeof setInterval>;
 
-  constructor(game: Game, private root: Ctrl) {
+  constructor(game: Game, readonly stream: Stream, private root: Ctrl) {
     this.game = game;
     this.pov = this.game.black.id == this.root.auth.me?.id ? 'black' : 'white';
     this.onUpdate();
     this.redrawInterval = setInterval(root.redraw, 100);
   }
 
-  onUnmount = () => clearInterval(this.redrawInterval);
+  onUnmount = () => {
+    this.stream.close();
+    clearInterval(this.redrawInterval);
+  };
 
   private onUpdate = () => {
     const setup = this.game.initialFen == 'startpos' ? defaultSetup() : parseFen(this.game.initialFen).unwrap();
@@ -70,16 +73,17 @@ export class GameCtrl {
   static open = (root: Ctrl, id: string): Promise<GameCtrl> =>
     new Promise<GameCtrl>(async resolve => {
       let ctrl: GameCtrl;
+      let stream: Stream;
       const handler = (msg: any) => {
         if (ctrl) ctrl.handle(msg);
         else {
           // Gets the gameFull object from the first message of the stream,
           // make a GameCtrl from it, then forward the next messages to the ctrl
-          ctrl = new GameCtrl(msg, root);
+          ctrl = new GameCtrl(msg, stream, root);
           resolve(ctrl);
         }
       };
-      await root.auth.openStream(`/api/board/game/stream/${id}`, handler);
+      stream = await root.auth.openStream(`/api/board/game/stream/${id}`, handler);
     });
   private handle = (msg: any) => {
     console.log(msg);

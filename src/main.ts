@@ -19,5 +19,4 @@ export default async function (element: HTMLElement) {
 
   await ctrl.auth.init();
   routing(ctrl);
-  ctrl.startEventStream();
 }
