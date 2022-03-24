@@ -27,7 +27,7 @@ export class Ctrl {
       method: 'post',
       body: formData({
         level: 1,
-        'clock.limit': 60 * 60,
+        'clock.limit': 60 * 3,
         'clock.increment': 2,
       }),
     });
