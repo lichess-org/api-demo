@@ -2,7 +2,11 @@
 
 This is an example for a fully client side OAuth app that uses various APIs.
 
-## Running
+## Try it out
+
+[The demo app is hosted on Github Pages](https://lichess-org.github.io/api-demo/)
+
+## Run it on your machine
 
 1. `npm install`
 1. `npm run build`
