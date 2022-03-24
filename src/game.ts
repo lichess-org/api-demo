@@ -67,12 +67,14 @@ export class GameCtrl {
     },
   });
 
-  static startEventStream = (root: Ctrl, id: string): Promise<GameCtrl> => {
-    return new Promise<GameCtrl>(async resolve => {
+  static open = (root: Ctrl, id: string): Promise<GameCtrl> =>
+    new Promise<GameCtrl>(async resolve => {
       let ctrl: GameCtrl;
       const handler = (msg: any) => {
         if (ctrl) ctrl.handle(msg);
         else {
+          // Gets the gameFull object from the first message of the stream,
+          // make a GameCtrl from it, then forward the next messages to the ctrl
           ctrl = new GameCtrl(msg, root);
           resolve(ctrl);
         }
@@ -80,8 +82,6 @@ export class GameCtrl {
       const stream = await root.auth.fetchResponse(`/api/board/game/stream/${id}`);
       await readStream(handler)(stream);
     });
-  };
-
   private handle = (msg: any) => {
     console.log(msg);
     switch (msg.type) {

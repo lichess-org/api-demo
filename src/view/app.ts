@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { Ctrl } from '../ctrl';
-import { Page, Renderer } from '../interfaces';
+import { Renderer } from '../interfaces';
 import { renderGame } from './game';
 import { renderHome } from './home';
 import layout from './layout';
@@ -15,9 +15,10 @@ const selectRenderer = (ctrl: Ctrl): Renderer => {
   throw `No renderer for page ${page}`;
 };
 
-const renderLoading: Renderer = (_: Ctrl) => [
+const renderLoading: Renderer = _ => [loadingBody()];
+
+export const loadingBody = () =>
   h(
     'div.loading',
     h('div.spinner-border.text-primary', { attrs: { role: 'status' } }, h('span.visually-hidden', 'Loading...'))
-  ),
-];
+  );

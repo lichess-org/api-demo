@@ -2,6 +2,7 @@ import { Auth } from './auth';
 import { GameCtrl } from './game';
 import { Page } from './interfaces';
 import { readStream } from './ndJsonStream';
+import { formData, sleep } from './util';
 import OngoingGames from './ongoingGames';
 import page from 'page';
 
@@ -15,7 +16,7 @@ export class Ctrl {
 
   openGame = async (id: string) => {
     this.game = undefined;
-    this.game = await GameCtrl.startEventStream(this, id);
+    this.game = await GameCtrl.open(this, id);
     this.redraw();
   };
 
@@ -58,11 +59,3 @@ export class Ctrl {
     }
   };
 }
-
-const formData = (data: any): FormData => {
-  const formData = new FormData();
-  for (const k of Object.keys(data)) formData.append(k, data[k]);
-  return formData;
-};
-
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));

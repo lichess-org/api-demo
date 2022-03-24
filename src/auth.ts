@@ -9,7 +9,7 @@ export const clientUrl = `${location.protocol}//${location.host}${BASE_PATH || '
 export interface Me {
   id: string;
   username: string;
-  httpClient: HttpClient;
+  httpClient: HttpClient; // with pre-set Authorization header
   perfs: { [key: string]: any };
 }
 
