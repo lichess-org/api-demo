@@ -1,0 +1,23 @@
+name: Lint OpenAPI specification and publish documentation
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    name: Publish app
+    if: ${{ github.event_name == 'push' && github.repository == 'lichess-org/lichess-api-demo' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run prod
+      - name: GitHub pages deploy
+        uses: maxheld83/ghpages@68f783a4f5313d776c1599e18479607e71c9c738
+        env:
+          BUILD_DIR: 'dist/'
+          GH_PAT: ${{ secrets.GH_PAT }}

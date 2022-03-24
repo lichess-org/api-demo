@@ -1,0 +1,5 @@
+node_modules/
+dist/index.min.js
+dist/style.min.css
+index.js
+style.css
