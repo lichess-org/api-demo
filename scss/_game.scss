@@ -1,5 +1,3 @@
-$blue: #375a7f;
-
 .games {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -13,7 +11,7 @@ $blue: #375a7f;
     color: var(--bs-gray) !important;
   }
   &:hover {
-    background: $blue;
+    background: var(--bs-primary);
     color: white !important;
   }
   &__opponent {
@@ -34,7 +32,6 @@ $blue: #375a7f;
     align-items: center;
     flex: 0 0 auto;
     padding: 0.5em 0;
-    color: var(--board-color);
     &__user {
       display: flex;
       align-items: center;
@@ -44,10 +41,13 @@ $blue: #375a7f;
     }
     &__clock {
       margin-bottom: -0.2em;
-      color: var(--bs-gray-500);
+      color: var(--bs-gray);
+      tenths {
+        font-size: 0.7em;
+      }
     }
     &.turn &__clock {
-      color: var(--bs-gray-100);
+      color: var(--board-color);
     }
   }
 

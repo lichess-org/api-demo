@@ -76,7 +76,7 @@ const renderPlayer = (ctrl: GameCtrl, color: Color) => {
         ),
         h('span.game-page__player__user__rating', p.rating || ''),
       ]),
-      h('div.game-page__player__clock.display-6.font-monospace', clockContent(ctrl, color)),
+      h('div.game-page__player__clock.display-6', clockContent(ctrl, color)),
     ]
   );
 };

@@ -2,10 +2,10 @@ import { Color } from 'chessops';
 import { h, VNode } from 'snabbdom';
 import { GameCtrl } from '../game';
 
-export function clockContent(ctrl: GameCtrl, color: Color): Array<string | VNode> {
+export function clockContent(ctrl: GameCtrl, color: Color): VNode {
   const time = ctrl.timeOf(color);
-  if (!time && time !== 0) return ['-'];
-  if (time == 2147483647) return [];
+  if (!time && time !== 0) return h('span', '-');
+  if (time == 2147483647) return h('span');
 
   const decay =
     color == ctrl.chess.turn && ctrl.chess.fullmoves > 1 && ctrl.playing() ? ctrl.lastUpdateAt - Date.now() : 0;
@@ -16,10 +16,11 @@ export function clockContent(ctrl: GameCtrl, color: Color): Array<string | VNode
 
 const realTime = (millis: number) => {
   const date = new Date(millis);
-  return [
+
+  return h('span.clock--realtime.font-monospace', [
     pad2(date.getUTCMinutes()) + ':' + pad2(date.getUTCSeconds()),
     h('tenths', '.' + Math.floor(date.getUTCMilliseconds() / 100).toString()),
-  ];
+  ]);
 };
 
 function correspondence(ms: number) {
@@ -42,7 +43,7 @@ function correspondence(ms: number) {
     // minutes : seconds
     str += bold(minutes) + ':' + bold(seconds);
   }
-  return [str];
+  return h('span.clock--correspondence', str);
 }
 
 const pad2 = (num: number) => (num < 10 ? '0' : '') + num;

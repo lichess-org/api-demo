@@ -1,6 +1,7 @@
 import { init, attributesModule, eventListenersModule, classModule } from 'snabbdom';
 import { Ctrl } from './ctrl';
 import view, { loadingBody } from './view/app';
+import '../scss/_bootstrap.scss';
 import '../scss/style.scss';
 import '../node_modules/bootstrap/js/dist/dropdown.js';
 import '../node_modules/bootstrap/js/dist/collapse.js';
