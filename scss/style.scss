@@ -10,11 +10,19 @@ body {
 }
 
 .login {
-  margin-top: 30%;
-  font-size: 2rem;
+  .about {
+    margin: 10vh 10vw;
+  }
+  .big {
+    font-size: 2rem;
+  }
   & .btn {
     font-size: 3rem;
   }
+}
+
+.about {
+  text-align: left;
 }
 
 .loading {

@@ -73,12 +73,8 @@ const renderGameWidget = (game: Game) =>
 
 const anonHome = () => [
   h('div.login.text-center', [
-    h('p', [
-      'This client-side app demonstrates usage of the ',
-      h('a', { attrs: { href: 'https://lichess.org/api' } }, 'Lichess API'),
-      '.',
-    ]),
-    h('p', 'Please log in to continue.'),
+    renderAbout(),
+    h('div.big', [h('p', 'Please log in to continue.')]),
     h(
       'a.btn.btn-primary.btn-lg.mt-5',
       {
@@ -101,6 +97,16 @@ const renderAbout = () =>
             attrs: { href: 'https://github.com/lichess-org/api-demo' },
           },
           'Source code of this demo'
+        )
+      ),
+      h(
+        'li',
+        h(
+          'a',
+          {
+            attrs: { href: 'https://github.com/lichess-org/api-demo#lichess-oauth-app-demo' },
+          },
+          'README'
         )
       ),
       h(
