@@ -4,8 +4,8 @@ import { Page } from './interfaces';
 import { Stream } from './ndJsonStream';
 import { formData } from './util';
 import OngoingGames from './ongoingGames';
-import page from 'page';
 import { SeekCtrl } from './seek';
+import { ChallengeCtrl } from './challenge';
 
 export class Ctrl {
   auth: Auth = new Auth();
@@ -14,6 +14,7 @@ export class Ctrl {
   games = new OngoingGames();
   game?: GameCtrl;
   seek?: SeekCtrl;
+  challenge?: ChallengeCtrl;
 
   constructor(readonly redraw: () => void) {}
 
@@ -71,6 +72,20 @@ export class Ctrl {
       this
     );
     this.page = 'seek';
+    this.redraw();
+  };
+
+  playMaia = async (minutes: number, increment: number) => {
+    this.challenge = await ChallengeCtrl.make(
+      {
+        username: 'maia1',
+        rated: false,
+        'clock.limit': minutes * 60,
+        'clock.increment': increment,
+      },
+      this
+    );
+    this.page = 'challenge';
     this.redraw();
   };
 }

@@ -22,9 +22,17 @@ const userHome = (ctrl: Ctrl) => [
         'button.btn.btn-outline-primary.btn-lg',
         {
           attrs: { type: 'button' },
+          on: { click: () => ctrl.playMaia(10, 0) },
+        },
+        'Play a casual 10+0 game with the maia1 BOT'
+      ),
+      h(
+        'button.btn.btn-outline-primary.btn-lg',
+        {
+          attrs: { type: 'button' },
           on: { click: () => ctrl.playPool(10, 0) },
         },
-        'Play a rated 10+0 game'
+        'Play a rated 10+0 game with a random opponent'
       ),
     ]),
     h('h2.mt-5', 'Games in progress'),

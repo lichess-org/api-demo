@@ -1,0 +1,12 @@
+.challenge-page {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 50vh;
+
+  &__awaiting {
+    display: flex;
+    align-items: center;
+  }
+}
