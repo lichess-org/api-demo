@@ -2,6 +2,15 @@
 
 This is an example for a fully client side OAuth app that uses various APIs.
 
+## Features
+
+- Fully client side, no server needed
+- Login with Lichess (OAuth2 PKCE)
+- View ongoing games
+- Play games
+- Challenge the AI opponent
+- Challenge random players
+
 ## Try it out
 
 [The demo app is hosted on Github Pages](https://lichess-org.github.io/api-demo/)
