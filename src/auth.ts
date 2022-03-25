@@ -2,9 +2,10 @@ import { HttpClient, OAuth2AuthCodePKCE } from '@bity/oauth2-auth-code-pkce';
 import { readStream } from './ndJsonStream';
 import { BASE_PATH } from './routing';
 
-export const lichessHost = 'https://lichess.org';
+// export const lichessHost = 'https://lichess.org';
+export const lichessHost = 'http://l.org';
 export const scopes = ['board:play'];
-export const clientId = 'lichess-oauth-demo';
+export const clientId = 'lichess-api-demo';
 export const clientUrl = `${location.protocol}//${location.host}${BASE_PATH || '/'}`;
 
 export interface Me {
@@ -64,8 +65,8 @@ export class Auth {
     this.me = me;
   };
 
-  openStream = async (path: string, handler: (_: any) => void) => {
-    const stream = await this.fetchResponse(path);
+  openStream = async (path: string, config: any, handler: (_: any) => void) => {
+    const stream = await this.fetchResponse(path, config);
     return readStream(`STREAM ${path}`, stream, handler);
   };
 

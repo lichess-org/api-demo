@@ -1,10 +1,11 @@
 import { Auth } from './auth';
 import { GameCtrl } from './game';
 import { Page } from './interfaces';
-import { readStream, Stream } from './ndJsonStream';
-import { formData, sleep } from './util';
+import { Stream } from './ndJsonStream';
+import { formData } from './util';
 import OngoingGames from './ongoingGames';
 import page from 'page';
+import { SeekCtrl } from './seek';
 
 export class Ctrl {
   auth: Auth = new Auth();
@@ -12,6 +13,7 @@ export class Ctrl {
   page: Page = 'home';
   games = new OngoingGames();
   game?: GameCtrl;
+  seek?: SeekCtrl;
 
   constructor(readonly redraw: () => void) {}
 
@@ -19,7 +21,8 @@ export class Ctrl {
     this.page = 'home';
     if (this.auth.me) {
       await this.stream?.close();
-      this.stream = await this.auth.openStream('/api/stream/event', msg => {
+      this.games.empty();
+      this.stream = await this.auth.openStream('/api/stream/event', {}, msg => {
         switch (msg.type) {
           case 'gameStart':
             this.games.onStart(msg.game);
@@ -48,7 +51,7 @@ export class Ctrl {
     this.game = undefined;
     this.page = 'game';
     this.redraw();
-    const game = await this.auth.fetchBody('/api/challenge/ai', {
+    await this.auth.fetchBody('/api/challenge/ai', {
       method: 'post',
       body: formData({
         level: 1,
@@ -56,6 +59,18 @@ export class Ctrl {
         'clock.increment': 2,
       }),
     });
-    page(`/game/${game.id}`);
+  };
+
+  playPool = async (minutes: number, increment: number) => {
+    this.seek = await SeekCtrl.make(
+      {
+        rated: true,
+        time: minutes,
+        increment,
+      },
+      this
+    );
+    this.page = 'seek';
+    this.redraw();
   };
 }

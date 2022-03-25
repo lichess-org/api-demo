@@ -9,14 +9,22 @@ export const renderHome: Renderer = ctrl => (ctrl.auth.me ? userHome(ctrl) : ano
 
 const userHome = (ctrl: Ctrl) => [
   h('div', [
-    h('div.mt-5', [
+    h('div.btn-group.mt-5', [
       h(
-        'button.btn.btn-primary.btn-lg',
+        'button.btn.btn-outline-primary.btn-lg',
         {
           attrs: { type: 'button' },
           on: { click: ctrl.playAi },
         },
         'Play the Lichess AI'
+      ),
+      h(
+        'button.btn.btn-outline-primary.btn-lg',
+        {
+          attrs: { type: 'button' },
+          on: { click: () => ctrl.playPool(10, 0) },
+        },
+        'Play a rated 10+0 game'
       ),
     ]),
     h('h2.mt-5', 'Games in progress'),

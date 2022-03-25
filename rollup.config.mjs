@@ -25,9 +25,8 @@ export default args => ({
     typescript(),
     commonjs(),
     scss({
-      include: ['scss/*.scss'],
+      include: ['scss/*'],
       output: args['config-prod'] ? './dist/style.min.css' : './style.css',
-      failOnError: true,
       runtime: sass,
       ...(args['config-prod'] ? { outputStyle: 'compressed' } : {}),
     }),

@@ -16,3 +16,8 @@ This is an example for a fully client side OAuth app that uses various APIs.
 
 - [ND-JSON stream reader](https://github.com/lichess-org/api-demo/blob/master/src/ndJsonStream.ts)
 - [OAuth "Login with Lichess"](https://github.com/lichess-org/api-demo/blob/master/src/auth.ts)
+- [Game play](https://github.com/lichess-org/api-demo/blob/master/src/game.ts)
+- [Create a seek and await a game](https://github.com/lichess-org/api-demo/blob/master/src/seek.ts)
+- [Read the main event stream](https://github.com/lichess-org/api-demo/blob/master/src/ctrl.ts)
+
+Feel free to reuse and learn from this code when building your own Lichess API app.

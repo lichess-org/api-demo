@@ -18,7 +18,7 @@ const realTime = (millis: number) => {
   const date = new Date(millis);
   return [
     pad2(date.getUTCMinutes()) + ':' + pad2(date.getUTCSeconds()),
-    h('tenths', '.' + Math.floor(millis / 100).toString()),
+    h('tenths', '.' + Math.floor(date.getUTCMilliseconds() / 100).toString()),
   ];
 };
 

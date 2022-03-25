@@ -5,9 +5,10 @@ import { h } from 'snabbdom';
 import { GameCtrl } from '../game';
 import { Renderer } from '../interfaces';
 import { clockContent } from './clock';
+import '../../scss/_game.scss';
 
-export const renderGame: (ctrl: GameCtrl) => Renderer = ctrl => _ => {
-  return [
+export const renderGame: (ctrl: GameCtrl) => Renderer = ctrl => _ =>
+  [
     h(
       `div.game-page.game-page--${ctrl.game.id}`,
       {
@@ -23,7 +24,6 @@ export const renderGame: (ctrl: GameCtrl) => Renderer = ctrl => _ => {
       ]
     ),
   ];
-};
 
 const renderBoard = (ctrl: GameCtrl) =>
   h(

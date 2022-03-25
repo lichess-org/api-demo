@@ -4,6 +4,7 @@ import { Renderer } from '../interfaces';
 import { renderGame } from './game';
 import { renderHome } from './home';
 import layout from './layout';
+import { renderSeek } from './seek';
 
 export default function view(ctrl: Ctrl): VNode {
   return layout(ctrl, selectRenderer(ctrl)(ctrl));
@@ -12,13 +13,15 @@ export default function view(ctrl: Ctrl): VNode {
 const selectRenderer = (ctrl: Ctrl): Renderer => {
   if (ctrl.page == 'game') return ctrl.game ? renderGame(ctrl.game) : renderLoading;
   if (ctrl.page == 'home') return renderHome;
-  throw `No renderer for page ${page}`;
+  if (ctrl.page == 'seek' && ctrl.seek) return renderSeek(ctrl.seek);
+  return renderNotFound;
 };
 
 const renderLoading: Renderer = _ => [loadingBody()];
 
-export const loadingBody = () =>
-  h(
-    'div.loading',
-    h('div.spinner-border.text-primary', { attrs: { role: 'status' } }, h('span.visually-hidden', 'Loading...'))
-  );
+const renderNotFound: Renderer = _ => [h('h1', 'Not found')];
+
+export const loadingBody = () => h('div.loading', spinner());
+
+export const spinner = () =>
+  h('div.spinner-border.text-primary', { attrs: { role: 'status' } }, h('span.visually-hidden', 'Loading...'));

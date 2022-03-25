@@ -83,10 +83,10 @@ export class GameCtrl {
           resolve(ctrl);
         }
       };
-      stream = await root.auth.openStream(`/api/board/game/stream/${id}`, handler);
+      stream = await root.auth.openStream(`/api/board/game/stream/${id}`, {}, handler);
     });
+
   private handle = (msg: any) => {
-    console.log(msg);
     switch (msg.type) {
       case 'gameFull':
         this.game = msg;
