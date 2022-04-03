@@ -11,6 +11,7 @@ This is an example for a fully client side OAuth app that uses various APIs.
 - Challenge the AI opponent
 - Challenge a player
 - Create a game seek
+- Watch Lichess TV
 
 ## Try it out
 
@@ -30,5 +31,6 @@ This is an example for a fully client side OAuth app that uses various APIs.
 - [Game play](https://github.com/lichess-org/api-demo/blob/master/src/game.ts)
 - [Create a seek and await a game](https://github.com/lichess-org/api-demo/blob/master/src/seek.ts)
 - [Challenge a player](https://github.com/lichess-org/api-demo/blob/master/src/challenge.ts)
+- [Watch Lichess TV](https://github.com/lichess-org/api-demo/blob/master/src/tv.ts)
 
 Feel free to reuse and learn from this code when building your own Lichess API app.
