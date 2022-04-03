@@ -97,4 +97,9 @@ export class Ctrl {
     this.tv = await TvCtrl.open(this);
     this.redraw();
   };
+
+  openRequest = () => {
+    this.page = 'request';
+    this.redraw();
+  };
 }

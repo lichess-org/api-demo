@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { Me } from '../auth';
 import { Ctrl } from '../ctrl';
-import { MaybeVNodes } from '../interfaces';
+import { MaybeVNodes, Page } from '../interfaces';
 import { href } from '../routing';
 import colorpicker from './colorpicker';
 import '../../scss/_navbar.scss';
@@ -35,23 +35,24 @@ const renderNavBar = (ctrl: Ctrl) =>
         h('span.navbar-toggler-icon')
       ),
       h('div#navbarSupportedContent.collapse.navbar-collapse', [
-        h('ul.navbar-nav.me-auto.mb-lg-0"', [
-          h(
-            'li.nav-item',
-            h(
-              'a.nav-link',
-              {
-                class: { active: ctrl.page == 'tv' },
-                attrs: href('/tv'),
-              },
-              'Watch TV'
-            )
-          ),
-        ]),
+        h('ul.navbar-nav.me-auto.mb-lg-0"', [navPage(ctrl, 'tv', 'Watch TV'), navPage(ctrl, 'request', 'API request')]),
         h('ul.navbar-nav', [colorpicker(), ctrl.auth.me ? userNav(ctrl.auth.me) : anonNav()]),
       ]),
     ]),
   ]);
+
+const navPage = (ctrl: Ctrl, page: Page, name: string) =>
+  h(
+    'li.nav-item',
+    h(
+      'a.nav-link',
+      {
+        class: { active: ctrl.page == page },
+        attrs: href(`/${page}`),
+      },
+      name
+    )
+  );
 
 const userNav = (me: Me) =>
   h('li.nav-item.dropdown', [

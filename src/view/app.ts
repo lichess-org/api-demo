@@ -7,6 +7,7 @@ import { renderGame } from './game';
 import { renderHome } from './home';
 import { renderSeek } from './seek';
 import { renderTv } from './tv';
+import { renderRequest } from './request';
 
 export default function view(ctrl: Ctrl): VNode {
   return layout(ctrl, selectRenderer(ctrl)(ctrl));
@@ -18,6 +19,7 @@ const selectRenderer = (ctrl: Ctrl): Renderer => {
   if (ctrl.page == 'seek' && ctrl.seek) return renderSeek(ctrl.seek);
   if (ctrl.page == 'challenge' && ctrl.challenge) return renderChallenge(ctrl.challenge);
   if (ctrl.page == 'tv') return ctrl.tv ? renderTv(ctrl.tv) : renderLoading;
+  if (ctrl.page == 'request') return renderRequest;
   return renderNotFound;
 };
 
