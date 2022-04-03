@@ -1,15 +1,10 @@
-import { Color } from 'chessops';
 import { h, VNode } from 'snabbdom';
-import { GameCtrl } from '../game';
 
-export function clockContent(ctrl: GameCtrl, color: Color): VNode {
-  const time = ctrl.timeOf(color);
+export function clockContent(time?: number, decay?: number): VNode {
   if (!time && time !== 0) return h('span', '-');
   if (time == 2147483647) return h('span');
 
-  const decay =
-    color == ctrl.chess.turn && ctrl.chess.fullmoves > 1 && ctrl.playing() ? ctrl.lastUpdateAt - Date.now() : 0;
-  const millis = time + decay;
+  const millis = time + (decay || 0);
 
   return millis > 1000 * 60 * 60 * 24 ? correspondence(millis) : realTime(millis);
 }
@@ -23,7 +18,7 @@ const realTime = (millis: number) => {
   ]);
 };
 
-function correspondence(ms: number) {
+const correspondence = (ms: number) => {
   const date = new Date(ms),
     minutes = prefixInteger(date.getUTCMinutes(), 2),
     seconds = prefixInteger(date.getSeconds(), 2);
@@ -44,7 +39,7 @@ function correspondence(ms: number) {
     str += bold(minutes) + ':' + bold(seconds);
   }
   return h('span.clock--correspondence', str);
-}
+};
 
 const pad2 = (num: number) => (num < 10 ? '0' : '') + num;
 const prefixInteger = (num: number, length: number): string => (num / Math.pow(10, length)).toFixed(length).slice(2);

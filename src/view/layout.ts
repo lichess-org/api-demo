@@ -11,7 +11,7 @@ export default function (ctrl: Ctrl, body: MaybeVNodes): VNode {
 }
 
 const renderNavBar = (ctrl: Ctrl) =>
-  h('header.navbar.navbar-expand-lg.navbar-dark.bg-dark', [
+  h('header.navbar.navbar-expand-md.navbar-dark.bg-dark', [
     h('div.container', [
       h(
         'a.navbar-brand',
@@ -35,6 +35,19 @@ const renderNavBar = (ctrl: Ctrl) =>
         h('span.navbar-toggler-icon')
       ),
       h('div#navbarSupportedContent.collapse.navbar-collapse', [
+        h('ul.navbar-nav.me-auto.mb-lg-0"', [
+          h(
+            'li.nav-item',
+            h(
+              'a.nav-link',
+              {
+                class: { active: ctrl.page == 'tv' },
+                attrs: href('/tv'),
+              },
+              'Watch TV'
+            )
+          ),
+        ]),
         h('ul.navbar-nav', [colorpicker(), ctrl.auth.me ? userNav(ctrl.auth.me) : anonNav()]),
       ]),
     ]),

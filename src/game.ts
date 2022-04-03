@@ -1,14 +1,22 @@
 import { Ctrl } from './ctrl';
 import { Game } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
-import { readStream, Stream } from './ndJsonStream';
+import { Config as CgConfig } from 'chessground/config';
+import { Stream } from './ndJsonStream';
 import { Color, Key } from 'chessground/types';
 import { opposite, parseUci } from 'chessops/util';
 import { Chess, defaultSetup } from 'chessops';
 import { makeFen, parseFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
 
-export class GameCtrl {
+export interface BoardCtrl {
+  chess: Chess;
+  ground?: CgApi;
+  chessgroundConfig: () => CgConfig;
+  setGround: (cg: CgApi) => void;
+}
+
+export class GameCtrl implements BoardCtrl {
   game: Game;
   pov: Color;
   chess: Chess = Chess.default();
@@ -69,6 +77,8 @@ export class GameCtrl {
       move: this.userMove,
     },
   });
+
+  setGround = (cg: CgApi) => (this.ground = cg);
 
   static open = (root: Ctrl, id: string): Promise<GameCtrl> =>
     new Promise<GameCtrl>(async resolve => {

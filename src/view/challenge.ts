@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { Renderer } from '../interfaces';
 import { url } from '../routing';
-import { ChallengeCtrl } from '../challenge';
+import ChallengeCtrl from '../challenge';
 import { spinner } from './app';
 import '../../scss/_challenge.scss';
 

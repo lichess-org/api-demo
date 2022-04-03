@@ -18,6 +18,7 @@ export default function (ctrl: Ctrl) {
   page('/game/:id', ctx => {
     ctrl.openGame(ctx.params.id);
   });
+  page('/tv', ctx => ctrl.watchTv());
   page({ hashbang: true });
 }
 

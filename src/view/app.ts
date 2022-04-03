@@ -1,11 +1,12 @@
 import { h, VNode } from 'snabbdom';
 import { Ctrl } from '../ctrl';
 import { Renderer } from '../interfaces';
+import layout from './layout';
 import { renderChallenge } from './challenge';
 import { renderGame } from './game';
 import { renderHome } from './home';
-import layout from './layout';
 import { renderSeek } from './seek';
+import { renderTv } from './tv';
 
 export default function view(ctrl: Ctrl): VNode {
   return layout(ctrl, selectRenderer(ctrl)(ctrl));
@@ -16,6 +17,7 @@ const selectRenderer = (ctrl: Ctrl): Renderer => {
   if (ctrl.page == 'home') return renderHome;
   if (ctrl.page == 'seek' && ctrl.seek) return renderSeek(ctrl.seek);
   if (ctrl.page == 'challenge' && ctrl.challenge) return renderChallenge(ctrl.challenge);
+  if (ctrl.page == 'tv') return ctrl.tv ? renderTv(ctrl.tv) : renderLoading;
   return renderNotFound;
 };
 

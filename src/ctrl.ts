@@ -5,7 +5,8 @@ import { Stream } from './ndJsonStream';
 import { formData } from './util';
 import OngoingGames from './ongoingGames';
 import { SeekCtrl } from './seek';
-import { ChallengeCtrl } from './challenge';
+import ChallengeCtrl from './challenge';
+import TvCtrl from './tv';
 
 export class Ctrl {
   auth: Auth = new Auth();
@@ -15,6 +16,7 @@ export class Ctrl {
   game?: GameCtrl;
   seek?: SeekCtrl;
   challenge?: ChallengeCtrl;
+  tv?: TvCtrl;
 
   constructor(readonly redraw: () => void) {}
 
@@ -86,6 +88,13 @@ export class Ctrl {
       this
     );
     this.page = 'challenge';
+    this.redraw();
+  };
+
+  watchTv = async () => {
+    this.page = 'tv';
+    this.redraw();
+    this.tv = await TvCtrl.open(this);
     this.redraw();
   };
 }

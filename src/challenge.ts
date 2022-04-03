@@ -3,7 +3,7 @@ import { Stream } from './ndJsonStream';
 import { formData } from './util';
 import page from 'page';
 
-export class ChallengeCtrl {
+export default class ChallengeCtrl {
   constructor(readonly stream: Stream, readonly root: Ctrl) {
     this.awaitClose();
   }

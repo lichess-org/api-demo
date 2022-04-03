@@ -35,6 +35,10 @@
     &__user {
       display: flex;
       align-items: center;
+      &__title {
+        color: var(--board-color);
+        margin-right: 1rem;
+      }
       &__rating {
         margin-left: 1em;
       }

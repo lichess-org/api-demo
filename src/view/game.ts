@@ -1,4 +1,3 @@
-import { Chessground } from 'chessground';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { h } from 'snabbdom';
@@ -6,6 +5,7 @@ import { GameCtrl } from '../game';
 import { Renderer } from '../interfaces';
 import { clockContent } from './clock';
 import '../../scss/_game.scss';
+import { renderBoard, renderPlayer } from './board';
 
 export const renderGame: (ctrl: GameCtrl) => Renderer = ctrl => _ =>
   [
@@ -17,29 +17,13 @@ export const renderGame: (ctrl: GameCtrl) => Renderer = ctrl => _ =>
         },
       },
       [
-        renderPlayer(ctrl, opposite(ctrl.pov)),
+        renderGamePlayer(ctrl, opposite(ctrl.pov)),
         renderBoard(ctrl),
-        renderPlayer(ctrl, ctrl.pov),
+        renderGamePlayer(ctrl, ctrl.pov),
         ctrl.playing() ? renderButtons(ctrl) : renderState(ctrl),
       ]
     ),
   ];
-
-const renderBoard = (ctrl: GameCtrl) =>
-  h(
-    'div.game-page__board',
-    h(
-      'div.cg-wrap',
-      {
-        hook: {
-          insert(vnode) {
-            ctrl.ground = Chessground(vnode.elm as HTMLElement, ctrl.chessgroundConfig());
-          },
-        },
-      },
-      'loading...'
-    )
-  );
 
 const renderButtons = (ctrl: GameCtrl) =>
   h('div.btn-group.mt-4', [
@@ -59,24 +43,11 @@ const renderButtons = (ctrl: GameCtrl) =>
 
 const renderState = (ctrl: GameCtrl) => h('div.game-page__state', ctrl.game.state.status);
 
-const renderPlayer = (ctrl: GameCtrl, color: Color) => {
+const renderGamePlayer = (ctrl: GameCtrl, color: Color) => {
   const p = ctrl.game[color];
-  return h(
-    'div.game-page__player',
-    {
-      class: {
-        turn: ctrl.chess.turn == color,
-      },
-    },
-    [
-      h('div.game-page__player__user', [
-        h(
-          'span.game-page__player__user__name.display-5',
-          p.aiLevel ? `Stockfish level ${p.aiLevel}` : p.name || 'Anon'
-        ),
-        h('span.game-page__player__user__rating', p.rating || ''),
-      ]),
-      h('div.game-page__player__clock.display-6', clockContent(ctrl, color)),
-    ]
+  const clock = clockContent(
+    ctrl.timeOf(color),
+    color == ctrl.chess.turn && ctrl.chess.fullmoves > 1 && ctrl.playing() ? ctrl.lastUpdateAt - Date.now() : 0
   );
+  return renderPlayer(ctrl, color, clock, p.name, p.title, p.rating, p.aiLevel);
 };
