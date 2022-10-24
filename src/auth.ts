@@ -23,7 +23,7 @@ export class Auth {
     scopes,
     redirectUrl: clientUrl,
     onAccessTokenExpiry: refreshAccessToken => refreshAccessToken(),
-    onInvalidGrant: _retry => {},
+    onInvalidGrant: console.warn,
   });
   me?: Me;
 
