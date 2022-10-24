@@ -1,13 +1,20 @@
 name: Publish the Lichess API Demo app
-
 on:
-  - push
-  - pull_request
-
+  push:
+    branches:
+      - master
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
 jobs:
-  build:
-    name: Publish app
-    if: ${{ github.event_name == 'push' && github.repository == 'lichess-org/api-demo' && github.ref == 'refs/heads/master' }}
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     defaults:
       run:
