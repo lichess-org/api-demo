@@ -18,7 +18,7 @@ importers:
         specifier: ^5
         version: 5.3.3(@popperjs/core@2.11.8)
       chessground:
-        specifier: github:yafred/chessground#chess3D
+        specifier: github:yafred/chessground#fba694588bc1ba075683d15ed1eb2c8d836f006c
         version: '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c'
       chessops:
         specifier: ^0.10.5
