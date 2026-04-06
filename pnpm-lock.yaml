@@ -18,8 +18,8 @@ importers:
         specifier: ^5
         version: 5.3.3(@popperjs/core@2.11.8)
       chessground:
-        specifier: github:yafred/chessground#fba694588bc1ba075683d15ed1eb2c8d836f006c
-        version: '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c'
+        specifier: github:yafred/chessground#chess3D
+        version: '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/31b1ed7bc0b981267d090e747763ac5d26a049b1'
       chessops:
         specifier: ^0.10.5
         version: 0.10.5
@@ -99,8 +99,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c':
-    resolution: {tarball: https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c}
+  '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/31b1ed7bc0b981267d090e747763ac5d26a049b1':
+    resolution: {tarball: https://codeload.github.com/yafred/chessground/tar.gz/31b1ed7bc0b981267d090e747763ac5d26a049b1}
     version: 10.1.1
 
   '@parcel/watcher-android-arm64@2.5.1':
@@ -817,7 +817,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c':
+  '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/31b1ed7bc0b981267d090e747763ac5d26a049b1':
     dependencies:
       three: 0.183.2
 
