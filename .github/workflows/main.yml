@@ -22,7 +22,7 @@ jobs:
         working-directory: .
     steps:
       - uses: actions/checkout@v4
-      - run: npm install
+      - run: npm ci --legacy-peer-deps
       - run: npm run prod
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
