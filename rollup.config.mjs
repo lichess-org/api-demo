@@ -4,6 +4,25 @@ import commonjs from "@rollup/plugin-commonjs";
 import scss from "rollup-plugin-scss";
 import sass from "sass";
 import terser from "@rollup/plugin-terser";
+import path from "node:path";
+import fs from "node:fs";
+
+function chessgroundReal3dFallback() {
+  return {
+    name: "chessground-real3d-fallback",
+    resolveId(source, importer) {
+      if (
+        source === "./real3d/scene.js" &&
+        importer &&
+        importer.includes("@lichess-org/chessground/dist/chessground.js")
+      ) {
+        const resolved = path.resolve(path.dirname(importer), "real3d/scene.js");
+        if (fs.existsSync(resolved)) return resolved;
+      }
+      return null;
+    },
+  };
+}
 
 export default (args) => ({
   input: "src/main.ts",
@@ -21,6 +40,7 @@ export default (args) => ({
       : [],
   },
   plugins: [
+    chessgroundReal3dFallback(),
     resolve(),
     typescript(),
     commonjs(),
