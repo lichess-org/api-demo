@@ -6,7 +6,7 @@
     "@bity/oauth2-auth-code-pkce": "^2",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5",
-    "chessground": "^8.2.1",
+    "chessground": "github:yafred/chessground#chess3D",
     "chessops": "^0.10.5",
     "page": "^1",
     "snabbdom": "^3"

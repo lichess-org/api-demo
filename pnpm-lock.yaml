@@ -11,12 +11,15 @@ importers:
       '@bity/oauth2-auth-code-pkce':
         specifier: ^2
         version: 2.13.0
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
       bootstrap:
         specifier: ^5
         version: 5.3.3(@popperjs/core@2.11.8)
       chessground:
-        specifier: ^8.2.1
-        version: 8.4.0
+        specifier: github:yafred/chessground#chess3D
+        version: '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c'
       chessops:
         specifier: ^0.10.5
         version: 0.10.5
@@ -95,6 +98,10 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c':
+    resolution: {tarball: https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c}
+    version: 10.1.1
 
   '@parcel/watcher-android-arm64@2.5.1':
     resolution: {integrity: sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==}
@@ -426,9 +433,6 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  chessground@8.4.0:
-    resolution: {integrity: sha512-0LPdp2Ln/EzeH/T63fDO4Hn9KcSExoMOqkgz3fPjPiY1mSHDBqVuU3drbctHIdorl6hkyQC3qZPMmNHYgZjnsA==}
-
   chessops@0.10.5:
     resolution: {integrity: sha512-QLYSs4nPsg5FUT3uUnhpwxRV8zGLorIHqlkV+uuJp6+wqIo2S33O6AMQfXSrUDCNOaBMhmyUf83BUkEafgCoFA==}
 
@@ -757,6 +761,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  three@0.183.2:
+    resolution: {integrity: sha512-di3BsL2FEQ1PA7Hcvn4fyJOlxRRgFYBpMTcyOgkwJIaDOdJMebEFPA+t98EvjuljDx4hNulAGwF6KIjtwI5jgQ==}
+
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
@@ -809,6 +816,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@lichess-org/chessground@https://codeload.github.com/yafred/chessground/tar.gz/fba694588bc1ba075683d15ed1eb2c8d836f006c':
+    dependencies:
+      three: 0.183.2
 
   '@parcel/watcher-android-arm64@2.5.1':
     optional: true
@@ -1042,8 +1053,6 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-
-  chessground@8.4.0: {}
 
   chessops@0.10.5:
     dependencies:
@@ -1378,6 +1387,8 @@ snapshots:
       acorn: 8.14.0
       commander: 2.20.3
       source-map-support: 0.5.21
+
+  three@0.183.2: {}
 
   to-regex-range@5.0.1:
     dependencies:
