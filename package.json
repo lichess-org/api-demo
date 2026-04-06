@@ -4,6 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "@bity/oauth2-auth-code-pkce": "^2",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5",
     "chessground": "^8.2.1",
     "chessops": "^0.10.5",
@@ -13,8 +14,8 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29",
     "@rollup/plugin-node-resolve": "^16",
-    "@rollup/plugin-typescript": "^12",
     "@rollup/plugin-terser": "^1",
+    "@rollup/plugin-typescript": "^12",
     "@types/page": "^1",
     "http-server": "^14",
     "prettier": "^2",
