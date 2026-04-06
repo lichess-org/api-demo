@@ -22,8 +22,11 @@ jobs:
         working-directory: .
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci --legacy-peer-deps
-      - run: npm run prod
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run prod
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
