@@ -1,5 +1,6 @@
 name: Publish the Lichess API Demo app
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
