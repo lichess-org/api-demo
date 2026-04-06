@@ -2,6 +2,7 @@
   "name": "lichess-oauth-app-example",
   "private": true,
   "license": "MIT",
+  "packageManager": "pnpm@10.32.1",
   "dependencies": {
     "@bity/oauth2-auth-code-pkce": "^2",
     "@popperjs/core": "^2.11.8",
