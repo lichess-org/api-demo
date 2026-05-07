@@ -5,6 +5,7 @@ import { Game } from './interfaces';
 export default class OngoingGames {
   games: Game[] = [];
   autoStart: Set<string> = new Set();
+  isUpdating = true;
 
   onStart = (game: Game) => {
     this.remove(game);
@@ -21,6 +22,7 @@ export default class OngoingGames {
 
   empty = () => {
     this.games = [];
+    this.isUpdating = true;
   };
 
   private remove = (game: Game) => {

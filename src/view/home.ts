@@ -44,7 +44,9 @@ const userHome = (ctrl: Ctrl) => [
 ];
 
 const renderGames = (ongoing: OngoingGames) =>
-  ongoing.games.length ? ongoing.games.map(renderGameWidget) : [h('p', 'No ongoing games at the moment')];
+  ongoing.games.length 
+  ? ongoing.games.map(renderGameWidget) 
+  : [h('p', ongoing.isUpdating ? 'Loading ongoing games...' : 'No ongoing games at the moment')];
 
 const renderGameWidget = (game: Game) =>
   h(

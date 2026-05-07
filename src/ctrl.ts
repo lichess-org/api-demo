@@ -20,28 +20,39 @@ export class Ctrl {
 
   constructor(readonly redraw: () => void) {}
 
-  openHome = async () => {
+  openHome = () => {
     this.page = 'home';
     if (this.auth.me) {
-      await this.stream?.close();
       this.games.empty();
-      this.stream = await this.auth.openStream('/api/stream/event', {}, msg => {
-        switch (msg.type) {
-          case 'gameStart':
-            this.games.onStart(msg.game);
-            break;
-          case 'gameFinish':
-            this.games.onFinish(msg.game);
-            break;
-          default:
-            console.warn(`Unprocessed message of type ${msg.type}`, msg);
-        }
-        this.redraw();
-      });
+      this.redraw();
+      void Promise.resolve(this.stream?.close())
+        .then(() =>
+          this.auth.openStream('/api/stream/event', {}, msg => {
+            switch (msg.type) {
+              case 'gameStart':
+                this.games.onStart(msg.game);
+                break;
+              case 'gameFinish':
+                this.games.onFinish(msg.game);
+                break;
+              default:
+                console.warn(`Unprocessed message of type ${msg.type}`, msg);
+            }
+            this.redraw();
+          }),
+        )
+        .then(stream => {
+          this.stream = stream;
+          this.games.isUpdating = false;
+          this.redraw();
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
     this.redraw();
   };
-
+  
   openGame = async (id: string) => {
     this.page = 'game';
     this.game = undefined;
